@@ -11,6 +11,6 @@ const theme = unstable_createMuiStrictModeTheme ({
     }
 })
 
-// ReactDOM.render(<App/>, document.getElementById('app'));
+// ReactDOM.render(<App/>, document.getElementById('app'))
 ReactDOM.render(<MuiThemeProvider theme={ theme }><App/></MuiThemeProvider>, document.getElementById('app'));
 
