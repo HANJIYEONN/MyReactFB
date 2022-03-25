@@ -121,7 +121,7 @@ class Detail extends React.Component {
                                 '워드 클라우드 이미지를 불러오고 있습니다.':
                                     ((this.state.imageUrl == 'NONE')?
                                         '해당 텍스트에 대한 워드 클라우드를 만들어 주세요.':
-                                        <img key={Math.random()} src = {this.state.imageUrl + '&ramdom=' + Math.random()}/>)):
+                                        <img key={Math.random()} src = {this.state.imageUrl + '&ramdom=' + Math.random()} style={{width: '100%'}}  />)):
                                 ''
                         }
                     </CardContent>
