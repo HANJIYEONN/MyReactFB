@@ -91,6 +91,12 @@ class Words extends React.Component {
         let nextState = {};
         nextState[e.target.name] = e.target.value;
         this.setState(nextState);
+        if(e.target.value < 1) {
+            this.setState({weight: 1});
+        }
+        else if(e.target.value > 9) {
+            this.setState({Weight: 9});
+        }
     }
     handleSubmit = () => {
         const word = {
@@ -147,7 +153,7 @@ class Words extends React.Component {
                     </DialogTitle>
                     <DialogContent>
                         <TextField label="단어" type="text" name="word" value={this.state.word} onChange={this.handleValueChange} /> <br/>
-                        <TextField label="가중치" type="number" name="weight" value={this.state.weight} onChange={this.handleValueChange} /> <br/>
+                        <TextField label="가중치(1부터 9까지)" type="number" name="weight" value={this.state.weight} onChange={this.handleValueChange} /> <br/>
                     </DialogContent>
                     <DialogActions>
                         <Button variant="contained" color="primary" onClick={this.handleSubmit}>추가</Button>

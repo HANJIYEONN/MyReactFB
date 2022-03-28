@@ -9,6 +9,8 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
+import DialogContent from '@material-ui/core/DialogContent';
+import TextField from '@material-ui/core/TextField';
 
 const databaseURL = "https://word-cloud-52a63-default-rtdb.firebaseio.com";
 const apiURL = "http://localhost:4002";
@@ -28,7 +30,9 @@ class Detail extends React.Component {
             dialog: false,
             textContent: '',
             words: {},
-            imageUrl: null
+            imageUrl: null,
+            maxCount: 30,
+            minLength: 1
         }
     }
     componentDidMount() {
@@ -61,7 +65,7 @@ class Detail extends React.Component {
             }
             return res.json();
         }).then(data => {
-                if(data['result'] == true) {
+                if(data['result'] === true) {
                     this.setState({imageUrl: apiURL + "/outputs?textID=" + this.props.match.params.textID})
                 } else {
                     this.setState({imageUrl: 'NONE'})
@@ -77,8 +81,8 @@ class Detail extends React.Component {
         const wordCloud = {
             textID: this.props.match.params.textID,
             text: this.state.textContent,
-            maxCount: 30,
-            minLength: 1,
+            maxCount: this.state.maxCount,
+            minLength: this.state.minLength,
             words: this.state.words
         }
         this.handleDialogToggle();
@@ -107,8 +111,17 @@ class Detail extends React.Component {
             this.setState({imageUrl: apiURL + "/outputs?textID=" + this.props.match.params.textID})
         });
     }
-
-
+    handleValueChange = (e) => {
+        let nextState = {};
+        if(e.target.value % 1 === 0) {
+            if(e.target.value < 1) {
+                nextState[e.target.name] = 1;
+            } else {
+                nextState[e.target.name] = e.target.value();
+            }
+        }
+        this.setState(nextState);
+    }
     render() {
         const { classes } = this.props;
         return (
@@ -117,11 +130,11 @@ class Detail extends React.Component {
                     <CardContent>
                         {
                             (this.state.imageUrl)?
-                                ((this.state.imageUrl == 'READY')?
+                                ((this.state.imageUrl === 'READY')?
                                 '워드 클라우드 이미지를 불러오고 있습니다.':
-                                    ((this.state.imageUrl == 'NONE')?
+                                    ((this.state.imageUrl === 'NONE')?
                                         '해당 텍스트에 대한 워드 클라우드를 만들어 주세요.':
-                                        <img key={Math.random()} src = {this.state.imageUrl + '&ramdom=' + Math.random()} style={{width: '100%'}}  />)):
+                                        <img key={Math.random()} src = {this.state.imageUrl + '&random=' + Math.random()} style={{width: '100%'}}  />)):
                                 ''
                         }
                     </CardContent>
@@ -131,9 +144,13 @@ class Detail extends React.Component {
                 </Fab>
                 <Dialog open={this.state.dialog} onClose={this.handleDialogToggle}>
                     <DialogTitle>워드 클라우드 생성</DialogTitle>
+                    <DialogContent>
+                        <textFiled label="최대 단어 개수" type="number" name="maxCount" value={this.state.maxCount} onChange={this.handleValueChange} /><br/>
+                        <textFiled label="최소 단어 길이" type="number" name="minLength" value={this.state.minLength} onChange={this.handleValueChange} /><br/>
+                    </DialogContent>
                     <DialogActions>
                         <Button variant="contained" color="primary" onClick={this.handleSubmit}>
-                            {(this.state.imageUrl == 'NONE') ? '만들기': '다시 만들기'}
+                            {(this.state.imageUrl === 'NONE') ? '만들기': '다시 만들기'}
                         </Button>
                         <Button variant="outlined" color="primary" onClick={this.handleDialogToggle}>
                              닫기
