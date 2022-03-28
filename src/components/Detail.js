@@ -117,7 +117,7 @@ class Detail extends React.Component {
             if(e.target.value < 1) {
                 nextState[e.target.name] = 1;
             } else {
-                nextState[e.target.name] = e.target.value();
+                nextState[e.target.name] = e.target.value;
             }
         }
         this.setState(nextState);
@@ -145,8 +145,8 @@ class Detail extends React.Component {
                 <Dialog open={this.state.dialog} onClose={this.handleDialogToggle}>
                     <DialogTitle>워드 클라우드 생성</DialogTitle>
                     <DialogContent>
-                        <textFiled label="최대 단어 개수" type="number" name="maxCount" value={this.state.maxCount} onChange={this.handleValueChange} /><br/>
-                        <textFiled label="최소 단어 길이" type="number" name="minLength" value={this.state.minLength} onChange={this.handleValueChange} /><br/>
+                        <TextField label="최대 단어 개수" type="number" name="maxCount" value={this.state.maxCount} onChange={this.handleValueChange} /><br/>
+                        <TextField label="최소 단어 길이" type="number" name="minLength" value={this.state.minLength} onChange={this.handleValueChange} /><br/>
                     </DialogContent>
                     <DialogActions>
                         <Button variant="contained" color="primary" onClick={this.handleSubmit}>

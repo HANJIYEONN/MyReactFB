@@ -102,10 +102,11 @@ class Texts extends React.Component {
 
     handleSubmit = () => {
         const text = {
-            textName: this.state.textName,
+            textName: this.state.fileName,
             textContent: this.state.fileContent
         }
         this.handleDialogToggle();
+
         if (!text.textName || !text.textContent) {
             return;
         }
@@ -124,7 +125,7 @@ class Texts extends React.Component {
                 fileContent: text
             })
         }
-        reader.readAsText(e.target.files[0], "EUC-KR");
+        reader.readAsText(e.target.files[0], "utf-8"); //EUC-KR 로 하면 글자 깨짐... utf-8로 하자
         this.setState({
             fileName: e.target.value
         });
