@@ -1,3 +1,17 @@
+#React와 Firebase로 앱 개발하기
+##ReactとFirebaseでアプリ開発
+=============
+
+개발자 유튜버 나동빈씨의 강의
+
+
+
+
+
+https://youtu.be/jBlt6gJVL2Q
+
+
+-------------
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
